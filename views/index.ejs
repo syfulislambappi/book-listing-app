@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Listing Application</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+  <!-- HEADER SECTION -->
+    <header>
+      <div class="container w-50 my-5">
+        <h1 class="my-5 text-center">Book Listing Application</h1>
+        <hr>
+        <div class="container my-5">
+          <form action="/books" enctype="multipart/form-data" method="POST" id="bookForm">
+              <div class="mb-3">
+                <label for="bookName" class="form-label">Book Name: </label>
+                <input type="text" class="form-control" id="bookName" aria-describedby="nameOfBook" name="bookName" placeholder="Book Name">
+              </div>
+              <div class="mb-3">
+                <label for="authorName" class="form-label">Author Name: </label>
+                <input type="text" class="form-control" id="authorName" aria-describedby="nameOfAuthor" name="authorName" placeholder="Author Name">
+              </div>
+              <div class="mb-3">
+                <label for="shortDescription" class="form-label">Short Description: </label>
+                <textarea name="shortDescription" id="shortDescription" rows="5" class="form-control" placeholder="Write Something About Book..."></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="bookImage" class="form-label">Book Image: </label>
+                <input type="file" class="form-control" id="bookImage" name="bookImage">
+              </div>
+              <input type="hidden" name="id">
+              <input type="submit" class="btn btn-primary" value="Add">
+            </form>
+      </div>
+      </div>
+    </header>
+    <!-- MAIN SECTION -->
+    <main>
+      <div class="container my-5">
+        <h2 class="my-5 text-center">Collection of Books</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center gx-md-3">
+          <% for( const book of books) { %>
+            <div>
+              <div class="card mx-auto" style="width: 18rem;">
+                <img src="./uploads/<%= book.bookImage %>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= book.bookName %> </h5>
+                  <p class="card-text"><%= book.shortDescription %> </p>
+                  <h6><%= book.authorName %> </h6>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                  <button data-bookName="<%= book.bookName %>" data-authorName="<%= book.authorName %>" data-shortDescription="<%= book.shortDescription %>" data-id="<%= book._id %>" type="button" class="btn btn-warning updateBtns">Update</button>
+                  <a href="/books/delete/<%= book._id %>" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </main>
+    <!-- JAVASCRIPT LINK -->
+    <script src="./js/script.js"></script>
+</body>
+</html>
